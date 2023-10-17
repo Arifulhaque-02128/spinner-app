@@ -9,47 +9,40 @@ export default function SpinnerWheel() {
   const [names, setNames] = useState(listOfNames)
   const [spinState, setSpinState] = useState(null)
   const [winner, setWinner] = useState('')
+  const [markerAngle, setMarkerAngle] =  useState(0)
 
   const getWinner = (angle) => {
     console.log("Get WInner : ", angle)
-    if(angle >= 0 && angle < 30){
+    const currentAngle = (angle + markerAngle)%360;
+    if(currentAngle >= 0 && currentAngle < 30) {
       setWinner("Rashed")
+      setMarkerAngle(currentAngle)
     }
-    else if(angle >= 30 && angle < 90){
+    else if(currentAngle >= 30 && currentAngle < 90){
       setWinner("Asad")
+      setMarkerAngle(currentAngle)
     }
-    else if(angle >= 90 && angle < 150){
+    else if(currentAngle >= 90 && currentAngle < 150){
       setWinner("Fatah")
+      setMarkerAngle(currentAngle)
     }
-    else if(angle >= 150 && angle < 210){
+    else if(currentAngle >= 150 && currentAngle < 210){
       setWinner("Sumon")
+      setMarkerAngle(currentAngle)
     }
-    else if(angle >= 210 && angle < 270){
+    else if(currentAngle >= 210 && currentAngle < 270){
       setWinner("Sara")
+      setMarkerAngle(currentAngle)
     }
-    else if(angle >= 270 && angle < 330){
+    else if(currentAngle >= 270 && currentAngle < 330){
       setWinner("Selim")
-    } else if(angle >= 330 && angle < 360){
+      setMarkerAngle(currentAngle)
+    } 
+    else if(currentAngle >= 330 && currentAngle < 360){
       setWinner("Rashed")
+      setMarkerAngle(currentAngle)
     }
   }
-
-  // const stopWheel = (time) => {
-  //   console.log("time : ", time);
-  //   setTimeout(() => {
-  //     setSpinState('stop')
-  //   }, time)
-  // }
-
-  // const resetWheel = (angle) => {
-  //   console.log("Angle : ", angle)
-  //   setTimeout(() => {
-  //     setSpinState('spinning')
-  //     const timeDuration = (angle/360) * 1000;
-  //     console.log(timeDuration);
-  //     stopWheel(timeDuration)
-  //   }, 5000)
-  // }
 
   const handleStartSpinning = () => {
     console.log(spinState)
@@ -57,15 +50,15 @@ export default function SpinnerWheel() {
       console.log(spinState)
       setSpinState('spinning')
       const randomDuration = Math.floor(Math.random() * 3000 + 1000)
+      
       console.log(randomDuration)
       const totalAngle = ((randomDuration/1000) * 360) % 360;
-
+      
       setTimeout(() => {
         console.log("inside set ---- ", totalAngle)
         setSpinState('stop');
         getWinner(totalAngle);
-        // resetWheel(360-totalAngle);
-      }, randomDuration)
+      }, randomDuration-30.8)
     }
   }
 
@@ -100,7 +93,7 @@ export default function SpinnerWheel() {
       > Spin It </button>
 
       {spinState === 'stop' && (
-        <div className='text-center mt-15'>
+        <div className='flex justify-center mt-55'>
           Winner: {winner}
         </div>
       )}
