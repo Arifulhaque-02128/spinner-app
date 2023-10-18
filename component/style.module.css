@@ -61,7 +61,7 @@
   border-right: 50px solid black;
   position: absolute;
   left: 60%;
-  top: 29%;
+  top: 31.5vh;
   z-index: 1;
 }
 
@@ -74,7 +74,7 @@
     border-right: 50px solid black;
     position: absolute;
     left: 65%;
-    top: 29%;
+    top: 31.5vh;
     z-index: 1;
   }
 }
@@ -88,8 +88,21 @@
     border-right: 50px solid black;
     position: absolute;
     left: 80%;
-    top: 29%;
+    top: 31.5vh;
     z-index: 1;
+  }
+
+  .popUp {
+    background-color: black;
+    color: white;
+    position: absolute;
+    height: 50px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 70%;
+    border-radius: 10px;
   }
 }
 
@@ -112,17 +125,16 @@
 
 .spinBtn {
   position: absolute;
-  left: 47%;
   width: 120px;
   height: 40px;
-  background-color: black;
+  background-color: darkblue;
   color: white;
   border-radius: 10px;
   margin-top: 30px;
   cursor: pointer;
   outline: none;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
 
 }
 
@@ -138,4 +150,17 @@
 
 .stop_rotate {
   animation-play-state: paused;
+}
+
+.popUp {
+  background-color: black;
+  color: white;
+  position: absolute;
+  height: 50px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 70%;
+  border-radius: 10px;
 }

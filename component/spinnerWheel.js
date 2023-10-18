@@ -1,48 +1,14 @@
 'use client'
+import { getWinner, listOfNames } from '../helper';
 import styles from './style.module.css'
 import { useState } from 'react';
 
 export default function SpinnerWheel() {
 
-  const listOfNames = [{name : "ASAD", color : "#eeefff"}, {name : "Rashed", color : "#fffaaa"}, {name : "Salim", color : "#aaabbb"}, {name : "SARA", color : "#eacbff"}, {name : "Sumon", color : "#dddaaa"}, {name : "Fatah", color : "#cccbbb"}]
-
   const [names, setNames] = useState(listOfNames)
   const [spinState, setSpinState] = useState(null)
   const [winner, setWinner] = useState('')
   const [markerAngle, setMarkerAngle] =  useState(0)
-
-  const getWinner = (angle) => {
-    console.log("Get WInner : ", angle)
-    const currentAngle = (angle + markerAngle)%360;
-    if(currentAngle >= 0 && currentAngle < 30) {
-      setWinner("Rashed")
-      setMarkerAngle(currentAngle)
-    }
-    else if(currentAngle >= 30 && currentAngle < 90){
-      setWinner("Asad")
-      setMarkerAngle(currentAngle)
-    }
-    else if(currentAngle >= 90 && currentAngle < 150){
-      setWinner("Fatah")
-      setMarkerAngle(currentAngle)
-    }
-    else if(currentAngle >= 150 && currentAngle < 210){
-      setWinner("Sumon")
-      setMarkerAngle(currentAngle)
-    }
-    else if(currentAngle >= 210 && currentAngle < 270){
-      setWinner("Sara")
-      setMarkerAngle(currentAngle)
-    }
-    else if(currentAngle >= 270 && currentAngle < 330){
-      setWinner("Selim")
-      setMarkerAngle(currentAngle)
-    } 
-    else if(currentAngle >= 330 && currentAngle < 360){
-      setWinner("Rashed")
-      setMarkerAngle(currentAngle)
-    }
-  }
 
   const handleStartSpinning = () => {
     console.log(spinState)
@@ -57,7 +23,9 @@ export default function SpinnerWheel() {
       setTimeout(() => {
         console.log("inside set ---- ", totalAngle)
         setSpinState('stop');
-        getWinner(totalAngle);
+        const res = getWinner(totalAngle, markerAngle);
+        setWinner(res[0]);
+        setMarkerAngle(res[1])
       }, randomDuration-30.8)
     }
   }
@@ -77,7 +45,7 @@ export default function SpinnerWheel() {
         {
           names.map((item, idx) => 
             <li key={idx}
-              style={{ backgroundColor : `${item.color}`, listStyle : 'none', transform :  `rotate(${idx * 60}deg) skewY(${-30}deg)`}}
+              style={{ backgroundColor : `${item.color}`, listStyle : 'none', transform :  `rotate(${idx * (360/names.length)}deg) skewY(${-30}deg)`}}
               className={styles.listStyle}
             >
               <div className={styles.textStyle}> {item.name} </div>
@@ -87,16 +55,22 @@ export default function SpinnerWheel() {
         }
       </ul>
 
-      <button 
-        className={styles.spinBtn}
-        onClick={handleStartSpinning}
-      > Spin It </button>
+      <div className='flex flex-row justify-center'>
+        <button 
+          className={styles.spinBtn}
+          onClick={handleStartSpinning}
+        > Spin It </button>
+      </div>
 
-      {spinState === 'stop' && (
-        <div className='flex justify-center mt-55'>
-          Winner: {winner}
-        </div>
-      )}
+      <div className='flex flex-row justify-center'>
+
+        {spinState === 'stop' && (
+          <div className={styles.popUp}>
+            <p className='font-bold text-lg'>{`"${winner}" is winner`}</p>
+          </div>
+        )}
+
+      </div>
   
     </main>
   )

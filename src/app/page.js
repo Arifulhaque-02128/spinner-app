@@ -8,7 +8,9 @@ export default function Home() {
 
       <h1 className='flex justify-center text-xl font-bold mt-10'>Spinner App</h1>
 
-      <SpinnerWheel />
+      <div className='my-10'>
+        <SpinnerWheel />
+      </div>
 
     </main>
   )
